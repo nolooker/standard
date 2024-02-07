@@ -1,0 +1,8 @@
+# app project create
+
+# spring boot starter
+
+# spring-boot-thymeleaf 의존성 주입
+
+# RequestController 와 Controller 차이
+    # https://mangkyu.tistory.com/49

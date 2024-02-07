@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DataController {
 
-    @GetMapping("/")
-    public String home() {
+    @GetMapping("/main")
+    public String main() {
         return "Data 준비중..";
     }
 }
