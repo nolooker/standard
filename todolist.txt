@@ -6,3 +6,9 @@
 
 # RequestController 와 Controller 차이
     # https://mangkyu.tistory.com/49
+
+# Member
+    - Controller param를 String 변수로 만들어서 보냄 -> Service class로 넘겨준다.
+    - Service class에서는 Repository로 넘겨준다.
+    - Repository에서는 DB로 넘긴다.
+
