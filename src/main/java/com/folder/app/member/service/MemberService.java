@@ -67,4 +67,47 @@ public class MemberService {
         }
         return memberDtoList;
     }
+
+    public MemberDto findById(Long id) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
+        if (optionalMemberEntity.isPresent()) {
+
+//            MemberEntity memberEntity = optionalMemberEntity.get();
+//            MemberDto memberDto = MemberDto.toMemberDto(memberEntity);
+//            return MemberDto;
+
+            return MemberDto.toMemberDto(optionalMemberEntity.get());
+        }
+        return null;
+    }
+
+    public MemberDto updateForm(String myEmail) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberEmail(myEmail);
+
+        if (optionalMemberEntity.isPresent()) {
+            return MemberDto.toMemberDto(optionalMemberEntity.get());
+        } else {
+            return null;
+        }
+
+    }
+
+    public void update(MemberDto memberDto) {
+        memberRepository.save(MemberEntity.toUpdateMemberEntity(memberDto));
+    }
+
+    public void deleteById(Long id) {
+        memberRepository.deleteById(id);
+    }
+
+    public String emailCheck(String memberEmail) {
+        Optional<MemberEntity> byMemberEmail = memberRepository.findByMemberEmail(memberEmail);
+        if (byMemberEmail.isPresent()) {
+            // 조회결과가 있으면 -> 사용할 수 없다.
+            return null;
+        } else {
+            // 조회결과가 없으면 -> 사용할 수 있다.
+            return "ok";
+        }
+    }
 }

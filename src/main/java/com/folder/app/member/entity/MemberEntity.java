@@ -31,4 +31,13 @@ public class MemberEntity { // Table 처럼 사용
         memberEntity.setMemberName(memberDto.getMemberName());
         return memberEntity;
     }
+
+    public static MemberEntity toUpdateMemberEntity(MemberDto memberDto) {
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setId(memberDto.getId());
+        memberEntity.setMemberEmail(memberDto.getMemberEmail());
+        memberEntity.setMemberPassword(memberDto.getMemberPassword());
+        memberEntity.setMemberName(memberDto.getMemberName());
+        return memberEntity;
+    }
 }
