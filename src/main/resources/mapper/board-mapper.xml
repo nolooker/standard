@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Board">
+    <insert id="board" parameterType="insert">
+        insert into board_table(id,boardTitle, boardWriter, boardPass, boardContents)
+            values(#{id}, #{boardTitle}, #{boardWriter}, #{boardPass}, #{boardContents})
+    </insert>
+</mapper>

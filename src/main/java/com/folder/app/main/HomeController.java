@@ -1,5 +1,6 @@
-package com.folder.app.member.controller;
+package com.folder.app.main;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 @Controller
