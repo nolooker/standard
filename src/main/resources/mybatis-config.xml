@@ -3,6 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias type="com.folder.app.board.dto.BoardDto" alias="insert"></typeAlias>
+        <typeAlias type="com.folder.app.board.dto.BoardDto" alias="board"></typeAlias>
     </typeAliases>
 </configuration>

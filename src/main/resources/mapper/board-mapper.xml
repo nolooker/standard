@@ -3,8 +3,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Board">
-    <insert id="board" parameterType="insert">
+    <insert id="board" parameterType="board">
         insert into board_table(id,boardTitle, boardWriter, boardPass, boardContents)
             values(#{id}, #{boardTitle}, #{boardWriter}, #{boardPass}, #{boardContents})
     </insert>
+
+    <select id="findAll" resultType="board">
+        select id
+            , boardTitle
+            , boardWriter
+            , createdAt
+            , boardHits
+        from board_table
+        order by id desc
+    </select>
 </mapper>
