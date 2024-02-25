@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class BoardController {
 
         boardService.board(boardDto);
 
-        return "index";
+        return "redirect:/boardList";   // boardList를 다시 요청
     }
 
     @GetMapping("/boardList")
@@ -41,5 +42,31 @@ public class BoardController {
     }
 
 
+    @GetMapping("/{id}")
+    public String findById(@PathVariable("id") Long id, Model model) {
+        // 조회수 처리 먼저
+        boardService.updateHits(id);
+        // 상세내용 가져온다
+        BoardDto boardDto = boardService.findById(id);
+        model.addAttribute("board", boardDto);
+        System.out.println(boardDto);
+        return "boardDetail";
+    }
 
+    @GetMapping("/boardUpdate/{id}")
+    public String updateForm(@PathVariable("id") Long id, Model model) {
+        BoardDto boardDto = boardService.findById(id);
+        model.addAttribute("board", boardDto);
+        System.out.println(boardDto);
+        return "boardUpdate";
+    }
+
+    @PostMapping("/boardUpdate/{id}")
+    public String update(BoardDto boardDto, Model model) {
+        boardService.boardUpdate(boardDto);
+        BoardDto dto = boardService.findById(boardDto.getId());
+        model.addAttribute("board", dto);
+        System.out.println(dto);
+        return "boardDetail";
+    }
 }

@@ -14,7 +14,31 @@
             , boardWriter
             , createdAt
             , boardHits
+            , boardContents
         from board_table
         order by id desc
     </select>
+
+    <update id="updateHits" parameterType="Long">
+        update board_table
+        set boardHits=boardHits+1
+        where id=#{id}
+    </update>
+
+    <select id="findById" parameterType="Long" resultType="board">
+        select id
+             , boardTitle
+             , boardWriter
+             , createdAt
+             , boardHits
+             , boardContents
+        from board_table
+        where id=#{id}
+    </select>
+
+    <update id="update">
+        update board_table
+        set boardTitle=#{boardTitle}, boardContents=#{boardContents}
+        where id=#{id}
+    </update>
 </mapper>
