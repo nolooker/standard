@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Board">
-    <insert id="board" parameterType="board">
-        insert into board_table(id,boardTitle, boardWriter, boardPass, boardContents)
-            values(#{id}, #{boardTitle}, #{boardWriter}, #{boardPass}, #{boardContents})
+    <insert id="board" parameterType="board" keyProperty="id">
+        insert into board_table(id,boardTitle, boardWriter, boardPass, boardContents, fileAttached)
+            values(#{id}, #{boardTitle}, #{boardWriter}, #{boardPass}, #{boardContents}, #{fileAttached})
     </insert>
 
     <select id="findAll" resultType="board">
@@ -32,6 +32,7 @@
              , createdAt
              , boardHits
              , boardContents
+             , fileAttached
         from board_table
         where id=#{id}
     </select>
@@ -41,4 +42,17 @@
         set boardTitle=#{boardTitle}, boardContents=#{boardContents}
         where id=#{id}
     </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from board_table where id = #{id}
+    </delete>
+    
+    <insert id="saveFile" parameterType="boardFile">
+        insert into board_file_table(originalFileName, storedFileName, boardId)
+        values (#{originalFileName}, #{storedFileName}, #{boardId})
+    </insert>
+    
+    <select id="findFile" parameterType="Long" resultType="boardFile">
+        select * from board_file_table where boardId = #{id}
+    </select>
 </mapper>

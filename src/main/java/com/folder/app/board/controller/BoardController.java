@@ -1,6 +1,7 @@
 package com.folder.app.board.controller;
 
 import com.folder.app.board.dto.BoardDto;
+import com.folder.app.board.dto.BoardFileDto;
 import com.folder.app.board.service.BoardService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -25,7 +27,7 @@ public class BoardController {
     }
 
     @PostMapping("/board")
-    public String board(@ModelAttribute BoardDto boardDto){
+    public String board(@ModelAttribute BoardDto boardDto) throws IOException {
         System.out.println(boardDto);
 
         boardService.board(boardDto);
@@ -50,6 +52,12 @@ public class BoardController {
         BoardDto boardDto = boardService.findById(id);
         model.addAttribute("board", boardDto);
         System.out.println(boardDto);
+
+        if (boardDto.getFileAttached() == 1) {
+            BoardFileDto boardFileDto = boardService.findFile(id);
+            model.addAttribute("boardFile", boardFileDto);
+        }
+
         return "boardDetail";
     }
 
@@ -68,5 +76,11 @@ public class BoardController {
         model.addAttribute("board", dto);
         System.out.println(dto);
         return "boardDetail";
+    }
+
+    @GetMapping("/boardDelete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        boardService.delete(id);
+        return "redirect:/boardList";
     }
 }
